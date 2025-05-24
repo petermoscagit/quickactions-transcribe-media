@@ -2,6 +2,9 @@
 
 set -e
 
+# Ensure script runs from its own directory
+cd "$(dirname "$0")"
+
 echo "📦 Installing macOS Quick Actions..."
 
 TARGET_DIR="$HOME/Library/Services"
@@ -23,24 +26,24 @@ fi
 if [ ${#missing[@]} -ne 0 ]; then
     echo "❌ Missing dependencies: ${missing[*]}"
     echo "➡️  Please install them before running this script."
-    echo "   For example:"
+    echo "   Example commands:"
     echo "   brew install ffmpeg"
     echo "   pip install git+https://github.com/openai/whisper.git"
     exit 1
 fi
 
-# Copy workflows
+# Install workflows
 mkdir -p "$TARGET_DIR"
 
 for wf in "${WORKFLOWS[@]}"; do
     if [ -d "$wf" ]; then
-        echo "➡️  Installing $wf to $TARGET_DIR"
+        echo "➡️  Installing '$wf' to $TARGET_DIR"
         cp -R "$wf" "$TARGET_DIR/"
     else
-        echo "⚠️  Warning: $wf not found in current directory"
+        echo "⚠️  Warning: '$wf' not found in current directory: $(pwd)"
     fi
 done
 
 echo "✅ Installation complete!"
-echo "🧭 Available under Finder > Quick Actions and System Settings > Keyboard > Services."
+echo "🧭 You can now find these under Finder > Quick Actions and System Settings > Keyboard > Services."
 
