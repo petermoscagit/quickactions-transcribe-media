@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Env files (if used)
+.env
+.envrc
+
+# Misc
+*.bak
+
